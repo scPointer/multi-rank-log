@@ -1,9 +1,9 @@
-import * as core from '@actions/core'
+import * as core from "@actions/core";
 
 async function run(): Promise<void> {
-  let details = core.getInput('details');
-  let pointsString = core.getInput('points');
-  let stop_if_fail = core.getInput('stop-if-fail');
+  let details = core.getInput("details");
+  let pointsString = core.getInput("points");
+  let stop_if_fail = core.getInput("stop-if-fail");
 
   console.log(`details: ${details}`);
   console.log(`points: ${pointsString}`);
@@ -11,4 +11,4 @@ async function run(): Promise<void> {
   console.log(`\n`);
 }
 
-run()
+run();
