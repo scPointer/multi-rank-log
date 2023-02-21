@@ -6,6 +6,7 @@ async function run(): Promise<void> {
   // get core inputs
   let details = core.getInput("details");
   let pointsString = core.getInput("points");
+  let points = pointsString.split("/");
   let stop_if_fail = core.getInput("stop-if-fail") == "true";
 
   // read json file
@@ -26,8 +27,8 @@ async function run(): Promise<void> {
   // get the current ref.
   let ref = github.context.ref.split("/").pop()!;
 
-  if (stop_if_fail) {
-    core.setFailed('not get the all points.')
+  if (stop_if_fail && points.length > 2 && points[0] != points[1]) {
+    core.setFailed("not get the all points.");
   }
 
   latestJson[ref] = `${timed}.txt`;

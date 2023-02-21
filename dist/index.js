@@ -40,30 +40,27 @@ const github = __importStar(__nccwpck_require__(5438));
 const promises_1 = __nccwpck_require__(9225);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        // get core inputs
         let details = core.getInput("details");
         let pointsString = core.getInput("points");
+        let points = pointsString.split('/');
         let stop_if_fail = core.getInput("stop-if-fail") == "true";
-        console.log(`details: ${details}`);
-        console.log(`points: ${pointsString}`);
-        console.log(`stop-if-fail: ${stop_if_fail}`);
-        console.log(`\n`);
+        // read json file
         let latestJsonFile = (yield (0, promises_1.readFile)("latest.json")).toString().trim();
         // parse the json file.
         let latestJson = {};
         if (latestJsonFile.length > 0)
             latestJson = JSON.parse(latestJsonFile);
+        // generate the time data
         let timed = new Date()
             .toISOString()
             .replace(/T/, "_")
             .substring(0, 19)
             .replace(/-/g, "_")
             .replace(/:/g, "_");
+        // get the current ref.
         let ref = github.context.ref.split("/").pop();
-        console.log(`timed ${timed}`);
-        console.log(`ref ${ref}`);
-        console.log(`latestJSONFile: ${latestJsonFile}`);
-        console.log(timed);
-        if (stop_if_fail) {
+        if (stop_if_fail && points.length > 2 && points[0] != points[1]) {
             core.setFailed('not get the all points.');
         }
         latestJson[ref] = `${timed}.txt`;
