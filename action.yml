@@ -1,0 +1,19 @@
+name: 'multi-rank-log'
+description: 'an action to generate the log file of the classroom for the rank program.'
+author: 'yfblock'
+inputs:
+  details:  # id of input
+    description: 'the details of the execution. write the details infomation to the log file.'
+    required: true
+    default: ''
+  points:
+    description: 'the points of the execution. write the points to the end of the log file. such as xx/xx'
+    required: true
+    default: ''
+  stop-if-fail:
+    description: 'fail the whole workflow if the points not get full'
+    required: true
+    default: false
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
