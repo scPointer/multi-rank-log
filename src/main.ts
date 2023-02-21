@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 
 async function run(): Promise<void> {
   let details = core.getInput("details");
@@ -15,15 +15,15 @@ async function run(): Promise<void> {
   let latestJsonFile = (await readFile("latest.json")).toString().trim();
 
   // parse the json file.
-  let latestJson = {};
+  let latestJson: any = {};
   if (latestJsonFile.length > 0) latestJson = JSON.parse(latestJsonFile);
 
   let timed = new Date()
     .toISOString()
     .replace(/T/, "_")
     .substring(0, 19)
-    .replace("-", "_")
-    .replace(":", "_");
+    .replace(/-/g, "_")
+    .replace(/:/g, "_");
   let ref = github.context.ref.split("/").pop()!;
   console.log(`timed ${timed}`);
   console.log(`ref ${ref}`);
@@ -31,6 +31,8 @@ async function run(): Promise<void> {
   console.log(timed);
 
   if (stop_if_fail) core.error("not get the all points.");
+
+  latestJson[ref] = `${timed}.txt`;
 }
 
 run();

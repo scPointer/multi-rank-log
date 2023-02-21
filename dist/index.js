@@ -56,15 +56,16 @@ function run() {
             .toISOString()
             .replace(/T/, "_")
             .substring(0, 19)
-            .replace("-", "_")
-            .replace(":", "_");
-        let ref = github.context.ref.split('/').pop();
+            .replace(/-/g, "_")
+            .replace(/:/g, "_");
+        let ref = github.context.ref.split("/").pop();
         console.log(`timed ${timed}`);
         console.log(`ref ${ref}`);
         console.log(`latestJSONFile: ${latestJsonFile}`);
         console.log(timed);
         if (stop_if_fail)
             core.error("not get the all points.");
+        latestJson[ref] = `${timed}.txt`;
     });
 }
 run();
