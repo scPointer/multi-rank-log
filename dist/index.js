@@ -63,9 +63,12 @@ function run() {
         console.log(`ref ${ref}`);
         console.log(`latestJSONFile: ${latestJsonFile}`);
         console.log(timed);
-        if (stop_if_fail)
-            core.error("not get the all points.");
+        if (stop_if_fail) {
+            core.setFailed('not get the all points.');
+        }
         latestJson[ref] = `${timed}.txt`;
+        yield (0, promises_1.writeFile)(latestJson[ref], `${details}\n\nPoints: ${pointsString}`);
+        yield (0, promises_1.writeFile)("latest.json", JSON.stringify(latestJson, null, 2));
     });
 }
 run();
