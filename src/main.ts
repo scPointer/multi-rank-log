@@ -9,8 +9,12 @@ async function run(): Promise<void> {
   let points = pointsString.split("/");
   let stop_if_fail = core.getInput("stop-if-fail") == "true";
 
+  console.log("start read file");
+
   // read json file
   let latestJsonFile = (await readFile("latest.json").catch(()=>"{}")).toString().trim();
+
+  console.log("read file success");
 
   // parse the json file.
   let latestJson: any = JSON.parse(latestJsonFile);
