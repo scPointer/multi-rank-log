@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { readFile, writeFile } from "fs/promises";
+import { mkdir, readFile, writeFile } from "fs/promises";
 
 async function run(): Promise<void> {
   // get core inputs
@@ -31,6 +31,9 @@ async function run(): Promise<void> {
   if (stop_if_fail && points.length >= 2 && points[0] != points[1]) {
     core.setFailed("not get the all points.");
   }
+
+  // crate public dir
+  await mkdir("public").catch(() => console.log("can't crate public dir"));
 
   latestJson[ref] = `${timed}.txt`;
   await writeFile(
