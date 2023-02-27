@@ -46,7 +46,9 @@ function run() {
         let points = pointsString.split("/");
         let stop_if_fail = core.getInput("stop-if-fail") == "true";
         // read json file
-        let latestJsonFile = (yield (0, promises_1.readFile)("latest.json").catch(() => "{}")).toString().trim();
+        let latestJsonFile = (yield (0, promises_1.readFile)("latest.json").catch(() => "{}"))
+            .toString()
+            .trim();
         // parse the json file.
         let latestJson = JSON.parse(latestJsonFile);
         // generate the time data
@@ -62,8 +64,8 @@ function run() {
             core.setFailed("not get the all points.");
         }
         latestJson[ref] = `${timed}.txt`;
-        yield (0, promises_1.writeFile)(latestJson[ref], `${details}\n\nPoints: ${pointsString}`);
-        yield (0, promises_1.writeFile)("latest.json", JSON.stringify(latestJson, null, 2));
+        yield (0, promises_1.writeFile)(`public/${latestJson[ref]}`, `${details}\n\nPoints: ${pointsString}`);
+        yield (0, promises_1.writeFile)("public/latest.json", JSON.stringify(latestJson, null, 2));
     });
 }
 run();

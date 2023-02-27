@@ -33,8 +33,11 @@ async function run(): Promise<void> {
   }
 
   latestJson[ref] = `${timed}.txt`;
-  await writeFile(latestJson[ref], `${details}\n\nPoints: ${pointsString}`);
-  await writeFile("latest.json", JSON.stringify(latestJson, null, 2));
+  await writeFile(
+    `public/${latestJson[ref]}`,
+    `${details}\n\nPoints: ${pointsString}`
+  );
+  await writeFile("public/latest.json", JSON.stringify(latestJson, null, 2));
 }
 
 run();
