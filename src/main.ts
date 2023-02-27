@@ -10,13 +10,7 @@ async function run(): Promise<void> {
   let stop_if_fail = core.getInput("stop-if-fail") == "true";
 
   // read json file
-  let latestJsonFile;
-
-  try {
-    latestJsonFile = (await readFile("latest.json")).toString().trim()
-  } catch(error) {
-    latestJsonFile = "{}";
-  }
+  let latestJsonFile = (await readFile("latest.json").catch(()=>"{}")).toString().trim();
 
   // parse the json file.
   let latestJson: any = JSON.parse(latestJsonFile);
