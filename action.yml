@@ -14,6 +14,10 @@ inputs:
     description: 'fail the whole workflow if the points not get full'
     required: true
     default: false
+  public-dir:
+    description: 'the directory to save temporary logs'
+    required: true
+    default: 'public'
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -8,6 +8,7 @@ async function run(): Promise<void> {
   let pointsString = core.getInput("points");
   let points = pointsString.split("/");
   let stop_if_fail = core.getInput("stop-if-fail") == "true";
+  let publicDir = core.getInput("public-dir") || "public";
 
   // read json file
   let latestJsonFile = (await readFile("latest.json").catch(() => "{}"))
@@ -37,10 +38,13 @@ async function run(): Promise<void> {
 
   latestJson[ref] = `${timed}.txt`;
   await writeFile(
-    `public/${latestJson[ref]}`,
+    `${publicDir}/${latestJson[ref]}`,
     `${details}\n\nPoints: ${pointsString}`
   );
-  await writeFile("public/latest.json", JSON.stringify(latestJson, null, 2));
+  await writeFile(
+    `${publicDir}/latest.json`,
+    JSON.stringify(latestJson, null, 2)
+  );
 }
 
 run();
