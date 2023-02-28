@@ -34,7 +34,7 @@ async function run(): Promise<void> {
   }
 
   // crate public dir
-  await mkdir("public").catch(() => console.log("can't crate public dir"));
+  await mkdir(publicDir).catch(() => console.log("can't crate public dir"));
 
   latestJson[ref] = `${timed}.txt`;
   await writeFile(
