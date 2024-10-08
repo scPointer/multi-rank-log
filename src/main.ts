@@ -54,6 +54,10 @@ async function run(): Promise<void> {
     `${publicDir}/score.txt`,
     score.toString()
   );
+  await writeFile(
+    `score.txt`,
+    score.toString()
+  );
 }
 
 run();
