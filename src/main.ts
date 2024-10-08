@@ -10,6 +10,8 @@ async function run(): Promise<void> {
   let stop_if_fail = core.getInput("stop-if-fail") == "true";
   let publicDir = core.getInput("public-dir") || "public";
 
+  const score_per_test = 100;
+
   // read json file
   let latestJsonFile = (await readFile("latest.json").catch(() => "{}"))
     .toString()
@@ -44,6 +46,13 @@ async function run(): Promise<void> {
   await writeFile(
     `${publicDir}/latest.json`,
     JSON.stringify(latestJson, null, 2)
+  );
+
+  let passed_test: number = Array.isArray(latestJson) ? latestJson.length : Object.keys(latestJson).length;
+  let score: number = passed_test * score_per_test;
+  await writeFile(
+    `${publicDir}/score.txt`,
+    score.toString()
   );
 }
 
