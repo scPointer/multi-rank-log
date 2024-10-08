@@ -48,7 +48,6 @@ async function run(): Promise<void> {
     JSON.stringify(latestJson, null, 2)
   );
 
-  console.log("before scoring");
   let passed_test: number = Array.isArray(latestJson) ? latestJson.length : Object.keys(latestJson).length;
   let score: number = passed_test * score_per_test;
   await writeFile(
@@ -60,7 +59,6 @@ async function run(): Promise<void> {
     score.toString()
   );
 
-  console.log("before scoring" + score.toString());
 }
 
 run();
